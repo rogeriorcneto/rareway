@@ -1,0 +1,19 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+.vscode
+.idea
+.env
+.env.*
+!.env.example
+!.env.e2e.example
+
+# Local Netlify folder
+.netlify
+
+# Playwright
+e2e-report
+test-results
+playwright-report
