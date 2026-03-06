@@ -41,26 +41,26 @@ export default function LoginScreen({
   // Tela de loading enquanto verifica sessão
   if (!authChecked) {
     return (
-      <div className="min-h-screen fashion-gradient flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-4">
         <div className="text-center">
-          <div className="w-24 h-24 bg-gray-900/80 backdrop-blur-fashion rounded-fashion-lg shadow-fashion-lg mx-auto flex items-center justify-center mb-6 animate-pulse p-3 border border-primary-500/30">
+          <div className="w-24 h-24 bg-gray-900/80 backdrop-blur-fashion rounded-fashion-lg shadow-fashion-lg mx-auto flex items-center justify-center mb-6 animate-pulse p-3 border border-gray-700">
             <img src="/Logo_Rareway.jpg" alt="RW" className="w-full h-full object-contain rounded-fashion" />
           </div>
-          <p className="text-primary-300 mt-4 font-medium">Carregando...</p>
+          <p className="text-gray-300 mt-4 font-medium">Carregando...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen fashion-gradient flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-28 h-28 bg-gray-900/80 backdrop-blur-fashion rounded-fashion-lg shadow-fashion-lg mx-auto flex items-center justify-center mb-6 p-4 border border-primary-500/30 hover-glow">
+          <div className="w-28 h-28 bg-gray-900/80 backdrop-blur-fashion rounded-fashion-lg shadow-fashion-lg mx-auto flex items-center justify-center mb-6 p-4 border border-gray-700 hover-glow">
             <img src="/Logo_Rareway.jpg" alt="RW" className="w-full h-full object-contain rounded-fashion" />
           </div>
           <h1 className="text-3xl font-bold text-gradient mb-2">Rareway</h1>
-          <p className="text-gray-300 text-sm">Sistema de Gestão de Moda</p>
+          <p className="text-gray-400 text-sm">Sistema de Gestão</p>
         </div>
 
         {showForgot ? (
@@ -145,20 +145,20 @@ export default function LoginScreen({
             </form>
 
             <div className="mt-8 pt-6 border-t border-gray-700 space-y-4">
-              <div className="bg-primary-500/10 border border-primary-500/30 rounded-fashion p-4 text-sm">
-                <p className="font-semibold text-primary-300 text-center mb-3">🔓 Credenciais de Demonstração</p>
-                <div className="bg-gray-800/50 rounded-fashion p-3 text-center">
+              <div className="bg-gray-800/50 border border-gray-700 rounded-fashion p-4 text-sm">
+                <p className="font-semibold text-gray-300 text-center mb-3">🔓 Credenciais de Demonstração</p>
+                <div className="bg-gray-900/50 rounded-fashion p-3 text-center">
                   <p className="text-gray-200">
-                    <strong>Usuário:</strong> <span className="text-primary-400">adm</span><br/>
-                    <strong>Senha:</strong> <span className="text-primary-400">adm123</span>
+                    <strong>Usuário:</strong> <span className="text-accent-400">adm</span><br/>
+                    <strong>Senha:</strong> <span className="text-accent-400">adm123</span>
                   </p>
                 </div>
               </div>
-              <p className="text-xs text-gray-400 text-center">Use as credenciais acima ou seu email/senha cadastrados.</p>
+              <p className="text-xs text-gray-500 text-center">Use as credenciais acima ou seu email/senha cadastrados.</p>
               <p className="text-center">
                 <button
                   onClick={() => { setShowForgot(true); setForgotEmail(loginUsuario); setForgotStatus(null) }}
-                  className="text-xs text-primary-400 hover:text-primary-300 underline transition-colors"
+                  className="text-xs text-gray-400 hover:text-gray-300 underline transition-colors"
                 >
                   Esqueci minha senha
                 </button>
@@ -168,7 +168,7 @@ export default function LoginScreen({
         )}
 
         <div className="text-center mt-8">
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-600">
             © 2024 Rareway - Todos os direitos reservados
           </p>
         </div>
