@@ -73,6 +73,48 @@ function App() {
   const loadAllData = useCallback(async () => {
     try {
       setIsLoading(true)
+      
+      // MODO DEMO - dados mock para demonstração
+      if (import.meta.env.VITE_DEMO_MODE === 'true') {
+        // Dados de demonstração
+        setClientes([
+          {
+            id: 1,
+            razaoSocial: 'Empresa Demo Ltda',
+            nomeFantasia: 'Demo Corp',
+            cnpj: '00.000.000/0001-00',
+            contatoNome: 'João Silva',
+            contatoEmail: 'joao@demo.com',
+            contatoTelefone: '(11) 0000-0000',
+            etapa: 'prospecção',
+            vendedorId: 999,
+            score: 80,
+            valorEstimado: 10000,
+            diasInativo: 5,
+            historicoEtapas: [],
+            dataEntradaEtapa: new Date().toISOString().split('T')[0],
+          }
+        ])
+        setInteracoes([])
+        setTarefas([])
+        setProdutos([
+          {
+            id: 1,
+            nome: 'Produto Demo',
+            descricao: 'Descrição do produto demo',
+            preco: 100,
+            categoria: 'categoria',
+            ativo: true,
+          }
+        ])
+        setPedidos([])
+        setVendedores([])
+        setDbNotificacoes([])
+        setIsLoading(false)
+        return
+      }
+
+      // MODO NORMAL - carregar do Supabase
       const [
         clientesData, interacoesData, tarefasData, produtosData,
         pedidosData, vendedoresData, notificacoesData
