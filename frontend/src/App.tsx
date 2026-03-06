@@ -102,9 +102,13 @@ function App() {
             id: 1,
             nome: 'Produto Demo',
             descricao: 'Descrição do produto demo',
+            categoria: 'outros',
             preco: 100,
-            categoria: 'categoria',
+            unidade: 'un',
+            foto: '',
             ativo: true,
+            destaque: false,
+            dataCadastro: new Date().toISOString().split('T')[0],
           }
         ])
         setPedidos([])
