@@ -3,6 +3,13 @@
   command = "npm run build"
   publish = "frontend/dist"
 
+# Environment variables for demo mode
+[build.environment]
+  VITE_DEMO_MODE = "true"
+  VITE_SUPABASE_URL = ""
+  VITE_SUPABASE_ANON_KEY = ""
+  VITE_BOT_URL = ""
+
 # SPA fallback for React Router-like setups
 [[redirects]]
   from = "/*"
