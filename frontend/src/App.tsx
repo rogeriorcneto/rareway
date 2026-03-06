@@ -33,6 +33,14 @@ function App() {
     BOT_URL: import.meta.env.VITE_BOT_URL
   })
 
+  // Forçar modo demo em produção ou sem variáveis
+  const isDemoMode = import.meta.env.VITE_DEMO_MODE === 'true' || 
+                     !import.meta.env.VITE_SUPABASE_URL || 
+                     !import.meta.env.VITE_SUPABASE_ANON_KEY ||
+                     import.meta.env.MODE === 'production'
+
+  console.log('🎯 Demo Mode Activated:', isDemoMode)
+
   const [loggedUser, setLoggedUser] = useState<Vendedor | null>(null)
   const [loginUsuario, setLoginUsuario] = useState('')
   const [loginSenha, setLoginSenha] = useState('')
@@ -83,7 +91,8 @@ function App() {
       setIsLoading(true)
       
       // MODO DEMO - dados mock para demonstração
-      if (import.meta.env.VITE_DEMO_MODE === 'true') {
+      if (isDemoMode) {
+        console.log('🎭 Loading demo data...')
         // Dados de demonstração
         setClientes([
           {
@@ -123,6 +132,7 @@ function App() {
         setVendedores([])
         setDbNotificacoes([])
         setIsLoading(false)
+        console.log('✅ Demo data loaded successfully')
         return
       }
 
@@ -151,7 +161,7 @@ function App() {
     } finally {
       setIsLoading(false)
     }
-  }, [])
+  }, [isDemoMode])
 
   // Lazy load de datasets secundários (carregados quando a view é acessada)
   const secondaryLoaded = useRef<Set<string>>(new Set())

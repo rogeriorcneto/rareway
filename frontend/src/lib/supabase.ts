@@ -1,7 +1,18 @@
 import { createClient } from '@supabase/supabase-js'
 
 // MODO DEMO - Verificar se está em modo demo antes de exigir variáveis
-const DEMO_MODE = import.meta.env.VITE_DEMO_MODE === 'true'
+const DEMO_MODE = import.meta.env.VITE_DEMO_MODE === 'true' || 
+                 !import.meta.env.VITE_SUPABASE_URL || 
+                 !import.meta.env.VITE_SUPABASE_ANON_KEY ||
+                 import.meta.env.MODE === 'production'
+
+console.log('🔍 Supabase Config:', {
+  DEMO_MODE,
+  MODE: import.meta.env.MODE,
+  VITE_DEMO_MODE: import.meta.env.VITE_DEMO_MODE,
+  VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
+  VITE_SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY ? '***' : 'empty'
+})
 
 if (!DEMO_MODE) {
   const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string
