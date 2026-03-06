@@ -285,18 +285,17 @@ function App() {
       if (loginUsuario.trim() === 'adm' && loginSenha === 'adm123') {
         // Criar usuário de teste mock
         const testUser: Vendedor = {
-          id: 'test-user-id',
+          id: 999, // ID numérico para teste
           nome: 'Administrador Teste',
           email: 'adm@teste.com',
           telefone: '(00) 00000-0000',
           cargo: 'gerente',
-          avatar: undefined,
+          avatar: '',
           metaVendas: 0,
           metaLeads: 0,
           metaConversao: 0,
           ativo: true,
-          usuario: 'adm',
-          senha: 'adm123'
+          usuario: 'adm'
         }
         setLoggedUser(testUser)
         await loadAllData()
