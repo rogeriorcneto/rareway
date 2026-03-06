@@ -25,6 +25,14 @@ import AppRouter from './components/AppRouter'
 import GlobalSearch from './components/GlobalSearch'
 
 function App() {
+  console.log('🚀 App component mounting...')
+  console.log('🔍 Environment:', {
+    MODE: import.meta.env.MODE,
+    DEMO_MODE: import.meta.env.VITE_DEMO_MODE,
+    SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
+    BOT_URL: import.meta.env.VITE_BOT_URL
+  })
+
   const [loggedUser, setLoggedUser] = useState<Vendedor | null>(null)
   const [loginUsuario, setLoginUsuario] = useState('')
   const [loginSenha, setLoginSenha] = useState('')
