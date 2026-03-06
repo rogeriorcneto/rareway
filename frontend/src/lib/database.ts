@@ -308,23 +308,39 @@ function historicoFromDb(row: any): HistoricoEtapa {
 // AUTH
 // ============================================
 
+// MODO DEMO - Backend desativado
+const DEMO_MODE = import.meta.env.VITE_DEMO_MODE === 'true'
+
 export async function signIn(email: string, password: string) {
+  if (DEMO_MODE) {
+    // Em modo demo, não faz login real
+    throw new Error('Use login de teste: adm/adm123')
+  }
   const { data, error } = await supabase.auth.signInWithPassword({ email, password })
   if (error) throw error
   return data
 }
 
 export async function signOut() {
+  if (DEMO_MODE) {
+    return // Não faz nada em modo demo
+  }
   const { error } = await supabase.auth.signOut()
   if (error) throw error
 }
 
 export async function getSession() {
+  if (DEMO_MODE) {
+    return null // Sem sessão em modo demo
+  }
   const { data } = await supabase.auth.getSession()
   return data.session
 }
 
 export async function getLoggedVendedor(): Promise<Vendedor | null> {
+  if (DEMO_MODE) {
+    return null // Sem vendedor logado em modo demo
+  }
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return null
   const { data, error } = await supabase
@@ -341,6 +357,9 @@ export async function getLoggedVendedor(): Promise<Vendedor | null> {
 // ============================================
 
 export async function fetchVendedores(): Promise<Vendedor[]> {
+  if (DEMO_MODE) {
+    return [] // Sem vendedores em modo demo
+  }
   const { data, error } = await supabase.from('vendedores').select('*').order('id')
   if (error) throw error
   return (data || []).map(vendedorFromDb)
@@ -428,6 +447,9 @@ async function fetchAllPages<T>(table: string, extraQuery?: (q: any) => any): Pr
 }
 
 export async function fetchClientes(): Promise<Cliente[]> {
+  if (DEMO_MODE) {
+    return [] // Clientes já são mock no App.tsx
+  }
   // Busca clientes e histórico em paralelo
   const [allRows, allHist] = await Promise.all([
     fetchAllPages<any>('clientes', q => q.order('id')),
@@ -559,6 +581,9 @@ export async function moverClienteAtomico(
 // ============================================
 
 export async function fetchInteracoes(): Promise<Interacao[]> {
+  if (DEMO_MODE) {
+    return [] // Sem interações em modo demo
+  }
   const PAGE_SIZE = 1000
   let allRows: any[] = []
   let from = 0
@@ -636,6 +661,9 @@ export async function insertInteracao(i: Omit<Interacao, 'id'>): Promise<Interac
 // ============================================
 
 export async function fetchTarefas(): Promise<Tarefa[]> {
+  if (DEMO_MODE) {
+    return [] // Sem tarefas em modo demo
+  }
   const PAGE_SIZE = 1000
   let allRows: any[] = []
   let from = 0
@@ -701,6 +729,9 @@ export async function deleteTarefa(id: number): Promise<void> {
 // ============================================
 
 export async function fetchProdutos(): Promise<Produto[]> {
+  if (DEMO_MODE) {
+    return [] // Produtos já são mock no App.tsx
+  }
   const { data, error } = await supabase.from('produtos').select('*').order('id')
   if (error) throw error
   return (data || []).map(produtoFromDb)
@@ -745,6 +776,9 @@ export async function deleteProduto(id: number): Promise<void> {
 // ============================================
 
 export async function fetchPedidos(): Promise<Pedido[]> {
+  if (DEMO_MODE) {
+    return [] // Sem pedidos em modo demo
+  }
   const PAGE_SIZE = 1000
   let allRows: any[] = []
   let from = 0
@@ -956,6 +990,9 @@ export async function insertAtividade(a: Omit<Atividade, 'id'>): Promise<Ativida
 // ============================================
 
 export async function fetchNotificacoes(): Promise<Notificacao[]> {
+  if (DEMO_MODE) {
+    return [] // Sem notificações em modo demo
+  }
   const { data, error } = await supabase.from('notificacoes').select('*').order('created_at', { ascending: false }).limit(50)
   if (error) throw error
   return (data || []).map(notificacaoFromDb)

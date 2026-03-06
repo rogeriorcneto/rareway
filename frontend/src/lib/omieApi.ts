@@ -1,6 +1,6 @@
-import { authFetch, BOT_URL } from './botApi'
+import { authFetch, getBotUrl } from './botApi'
 
-const OMIE_BASE = `${BOT_URL}/api/omie`
+const OMIE_BASE = `${getBotUrl()}/api/omie`
 
 // ─── Config ───
 

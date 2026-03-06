@@ -1,9 +1,18 @@
 import { supabase } from './supabase'
 
-const BOT_URL = (import.meta as any).env?.VITE_BOT_URL || 'http://localhost:3001'
+// MODO DEMO - Backend desativado para teste
+const DEMO_MODE = import.meta.env.VITE_DEMO_MODE === 'true' || !import.meta.env.VITE_BOT_URL
+
+/** Mock responses para modo demo */
+const mockSuccess = { success: true, message: 'Operação simulada em modo demo' }
+const mockError = { success: false, error: 'Backend desativado - Modo demo' }
 
 /** Fetch with Supabase auth token attached */
 export async function authFetch(url: string, options: RequestInit = {}): Promise<Response> {
+  if (DEMO_MODE) {
+    throw new Error('Backend desativado - Modo demo')
+  }
+  
   const { data: { session } } = await supabase.auth.getSession()
   const token = session?.access_token
   if (!token) {
@@ -27,7 +36,13 @@ export async function authFetch(url: string, options: RequestInit = {}): Promise
 
 /** Send a WhatsApp message via backend */
 export async function sendWhatsApp(number: string, text: string, clienteId?: number, vendedorNome?: string): Promise<{ success: boolean; error?: string }> {
+  if (DEMO_MODE) {
+    console.log('📱 WhatsApp (Demo):', { number, text, clienteId, vendedorNome })
+    return mockSuccess
+  }
+  
   try {
+    const BOT_URL = (import.meta as any).env?.VITE_BOT_URL || 'http://localhost:3001'
     const res = await authFetch(`${BOT_URL}/api/whatsapp/send`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -41,7 +56,13 @@ export async function sendWhatsApp(number: string, text: string, clienteId?: num
 
 /** Send an email via backend */
 export async function sendEmailViaBot(to: string, subject: string, body: string, clienteId?: number, vendedorNome?: string): Promise<{ success: boolean; error?: string }> {
+  if (DEMO_MODE) {
+    console.log('📧 Email (Demo):', { to, subject, body, clienteId, vendedorNome })
+    return mockSuccess
+  }
+  
   try {
+    const BOT_URL = (import.meta as any).env?.VITE_BOT_URL || 'http://localhost:3001'
     const res = await authFetch(`${BOT_URL}/api/email/send`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -54,4 +75,9 @@ export async function sendEmailViaBot(to: string, subject: string, body: string,
 }
 
 /** Get bot URL for direct use */
-export { BOT_URL }
+export function getBotUrl(): string {
+  if (DEMO_MODE) {
+    return '' // Backend desativado
+  }
+  return (import.meta as any).env?.VITE_BOT_URL || 'http://localhost:3001'
+}
